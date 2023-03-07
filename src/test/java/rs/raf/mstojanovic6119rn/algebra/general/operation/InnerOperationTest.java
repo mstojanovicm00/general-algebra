@@ -44,7 +44,7 @@ class InnerOperationTest {
                 .calculate(OperablePool.getOperable(2), OperablePool.getOperable(3),
                         OperablePool.getOperable(4)));
         assertThat(exception.getMessage().trim(),
-                equalTo("The given 3 operable array is not compatible to 2"));
+                equalTo("The given 3 operable array is not compatible to 5"));
     }
 
     @Test
