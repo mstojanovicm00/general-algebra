@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
  *
  * @author mstojanovic6119rn
  */
-public final class OperablePool {
+public class OperablePool {
 
     private static final Set<Operable> OPERABLES = new HashSet<>();
 

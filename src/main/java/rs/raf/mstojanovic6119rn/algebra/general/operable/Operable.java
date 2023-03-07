@@ -32,6 +32,11 @@ public class Operable {
         return false;
     }
 
+    @Override
+    public String toString() {
+        return String.valueOf(this.content);
+    }
+
     /**
      * Getter for field <code>content</code>
      *
