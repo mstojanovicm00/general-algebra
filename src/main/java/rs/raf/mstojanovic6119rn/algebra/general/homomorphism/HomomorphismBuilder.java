@@ -59,7 +59,7 @@ public class HomomorphismBuilder implements IHomomorphism {
             List<Operable> rightUp = leftUp.stream()
                     .map(oa::calculate).collect(Collectors.toList());
             List<Operable> rightDown1 = rightUp.stream()
-                    .map(function::apply).collect(Collectors.toList());
+                    .map(function).collect(Collectors.toList());
             List<Operable> rightDown2 = leftDown.stream()
                     .map(ob::calculate).collect(Collectors.toList());
             if (!rightDown1.equals(rightDown2)) {

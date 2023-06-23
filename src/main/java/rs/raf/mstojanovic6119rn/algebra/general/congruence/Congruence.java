@@ -11,7 +11,7 @@ public class Congruence {
     public static Congruence createConguence(Algebra algebra, Relation<Operable, Operable> relation) {
         if (RelationUtils.isEquivalence(relation, algebra.getOperables()))
             return new Congruence(algebra, relation);
-        return null;
+        throw new RelationNotEquivalenceException(relation);
     }
 
     private final Algebra algebra;
