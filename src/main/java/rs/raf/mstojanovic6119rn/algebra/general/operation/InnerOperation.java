@@ -39,7 +39,7 @@ public class InnerOperation implements Operation {
     }
 
     @Override
-    public Type type() {
+    public IntegerType type() {
         return this.arity;
     }
 

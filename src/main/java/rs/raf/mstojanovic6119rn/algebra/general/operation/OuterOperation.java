@@ -43,7 +43,7 @@ public class OuterOperation implements Operation {
     }
 
     @Override
-    public Type type() {
+    public SetType type() {
         return this.scalarSet;
     }
 

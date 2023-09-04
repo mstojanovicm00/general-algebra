@@ -34,7 +34,7 @@ public class Constant implements Operation {
     }
 
     @Override
-    public Type type() {
+    public ZeroType type() {
         return ZeroType.ZERO_TYPE;
     }
 

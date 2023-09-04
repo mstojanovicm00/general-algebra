@@ -27,6 +27,18 @@ public class Algebra {
         this.operables.addAll(Arrays.stream(operables).collect(Collectors.toList()));
     }
 
+    private Algebra(Collection<Operable> operables) {
+        this.operables.addAll(operables);
+    }
+
+    protected Algebra(Collection<Operable> operables, Operation... operations) {
+        this(operables);
+        for (Operation o : operations) {
+            if (!this.addOperation(o))
+                throw new RuntimeException();
+        }
+    }
+
     private boolean operationPreserved(Operation operation) {
         return this.operables.containsAll(operation.calculations(this.operables).values());
     }
