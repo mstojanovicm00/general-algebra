@@ -4,6 +4,9 @@ import rs.raf.mstojanovic6119rn.algebra.general.operable.Operable;
 import rs.raf.mstojanovic6119rn.algebra.general.operation.DisrespectOfArityException;
 import rs.raf.mstojanovic6119rn.algebra.general.operation.InnerOperation;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 public class BinaryOperationUtils {
@@ -65,6 +68,38 @@ public class BinaryOperationUtils {
                 return o;
         }
         return null;
+    }
+
+    private static Operable findInverseElement(InnerOperation operation, Set<Operable> operables,
+                                               Operable neutralElement, Operable startingElement) {
+        for (Operable o : operables) {
+            if (!operation.calculate(startingElement, o).equals(neutralElement))
+                continue;
+            if (!operation.calculate(o, startingElement).equals(neutralElement))
+                continue;
+            return o;
+        }
+        return null;
+    }
+
+    public static Map<Operable, Operable> mapElementsToTheirInverses(InnerOperation operation,
+                                                                      Set<Operable> operables,
+                                                                      Operable neutralElement) {
+        if (!Objects.equals(
+                findInverseElement(operation, operables, neutralElement, neutralElement), neutralElement))
+            throw new RuntimeException();
+        Map<Operable, Operable> map = new HashMap<>();
+        map.put(neutralElement, neutralElement);
+        for (Operable o : operables) {
+            if (map.containsKey(o))
+                continue;
+            Operable inverse = findInverseElement(operation, operables, neutralElement, o);
+            if (inverse == null)
+                throw new RuntimeException();
+            map.put(o, inverse);
+            map.put(inverse, o);
+        }
+        return map;
     }
 
     private BinaryOperationUtils() {
