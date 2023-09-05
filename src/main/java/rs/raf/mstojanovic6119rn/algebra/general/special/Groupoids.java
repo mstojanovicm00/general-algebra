@@ -4,6 +4,9 @@ import rs.raf.mstojanovic6119rn.algebra.general.Algebra;
 import rs.raf.mstojanovic6119rn.algebra.general.operable.Operable;
 import rs.raf.mstojanovic6119rn.algebra.general.operation.DisrespectOfArityException;
 import rs.raf.mstojanovic6119rn.algebra.general.operation.InnerOperation;
+import rs.raf.mstojanovic6119rn.algebra.general.operation.utility.BinaryOperationUtils;
+import rs.raf.mstojanovic6119rn.algebra.general.special.additional.Associable;
+import rs.raf.mstojanovic6119rn.algebra.general.special.additional.Commutable;
 
 import java.util.Set;
 
@@ -21,14 +24,25 @@ public class Groupoids {
 
     }
 
-    static class Groupoid extends Algebra {
+    static class Groupoid extends Algebra implements Commutable, Associable {
         Groupoid(Set<Operable> operables, InnerOperation operation) {
             super(operables, operation);
         }
+        InnerOperation getBinaryOperation() {
+            return (InnerOperation) super.getOperations().get(0);
+        }
         Semigroups.Semigroup convertToSemigroup() {
             Set<Operable> operables = super.getOperables();
-            InnerOperation operation = (InnerOperation) super.getOperations().get(0);
+            InnerOperation operation = this.getBinaryOperation();
             return new Semigroups.Semigroup(operables, operation);
+        }
+        @Override
+        public boolean isAssociative() {
+            return BinaryOperationUtils.isAssociative(this.getBinaryOperation(), super.getOperables());
+        }
+        @Override
+        public boolean isCommutative() {
+            return BinaryOperationUtils.isCommutative(this.getBinaryOperation(), super.getOperables());
         }
     }
 }

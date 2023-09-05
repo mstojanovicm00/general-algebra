@@ -82,6 +82,16 @@ public class BinaryOperationUtils {
         return null;
     }
 
+    public static boolean hasInverse(InnerOperation operation, Set<Operable> operables,
+                                     Operable neutralElement, Operable startingElement) {
+        return findInverseElement(operation, operables, neutralElement, startingElement) != null;
+    }
+
+    public static boolean isItsOwnInverse(InnerOperation operation, Set<Operable> operables,
+                                          Operable neutralElement, Operable startingElement) {
+        return startingElement.equals(findInverseElement(operation, operables, neutralElement, startingElement));
+    }
+
     public static Map<Operable, Operable> mapElementsToTheirInverses(InnerOperation operation,
                                                                       Set<Operable> operables,
                                                                       Operable neutralElement) {
@@ -100,6 +110,35 @@ public class BinaryOperationUtils {
             map.put(inverse, o);
         }
         return map;
+    }
+
+    public static boolean isDistributive(InnerOperation multiplication, InnerOperation addition,
+                                         Set<Operable> operables) {
+        if (multiplication.type().getValue() != 2)
+            throw new DisrespectOfArityException(
+                    new InnerOperation.IntegerType(2),
+                    multiplication.type().getValue());
+        if (addition.type().getValue() != 2)
+            throw new DisrespectOfArityException(
+                    new InnerOperation.IntegerType(2),
+                    addition.type().getValue());
+        for (Operable a : operables) {
+            for (Operable b : operables) {
+                for (Operable c : operables) {
+                    Operable leftA = multiplication.calculate(addition.calculate(a, b), c);
+                    Operable leftB = addition.calculate(
+                            multiplication.calculate(a, c), multiplication.calculate(b, c));
+                    if (!leftA.equals(leftB))
+                        return false;
+                    Operable rightA = multiplication.calculate(c, addition.calculate(a, b));
+                    Operable rightB = addition.calculate(
+                            multiplication.calculate(c, a), multiplication.calculate(c, b));
+                    if (!rightA.equals(rightB))
+                        return false;
+                }
+            }
+        }
+        return true;
     }
 
     private BinaryOperationUtils() {
