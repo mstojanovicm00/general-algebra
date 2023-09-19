@@ -10,22 +10,22 @@ import rs.raf.mstojanovic6119rn.algebra.general.special.additional.Commutable;
 
 import java.util.Set;
 
-public class Groupoids {
+public class Magmas {
 
     public static Algebra createGroupoid(Set<Operable> operables, InnerOperation operation) {
         if (operation.type().getValue() == 2)
-            return new Groupoid(operables, operation);
+            return new Magma(operables, operation);
         throw new DisrespectOfArityException(
                 new InnerOperation.IntegerType(2),
                 operation.type().getValue());
     }
 
-    private Groupoids() {
+    private Magmas() {
 
     }
 
-    static class Groupoid extends Algebra implements Commutable, Associable {
-        Groupoid(Set<Operable> operables, InnerOperation operation) {
+    static class Magma extends Algebra implements Commutable, Associable {
+        Magma(Set<Operable> operables, InnerOperation operation) {
             super(operables, operation);
         }
         InnerOperation getBinaryOperation() {

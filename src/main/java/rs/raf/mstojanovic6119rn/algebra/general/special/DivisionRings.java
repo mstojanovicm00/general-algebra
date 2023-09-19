@@ -11,22 +11,22 @@ import rs.raf.mstojanovic6119rn.algebra.general.special.additional.Distributable
 
 import java.util.Set;
 
-public class Bodies {
+public class DivisionRings {
 
     public static Algebra createBody(Set<Operable> operables,
                                      InnerOperation addition, InnerOperation multiplication) {
         Rings.Ring ring = (Rings.Ring) Rings.createRing(operables, addition, multiplication);
-        return ring.convertToBody();
+        return ring.convertToDivisionRing();
     }
 
-    private Bodies() {
+    private DivisionRings() {
 
     }
 
-    static class Body extends Algebra implements Commutable, Associable, Distributable {
-        Body(Set<Operable> operables,
-             InnerOperation addition, InnerOperation minus, Constant zero,
-             InnerOperation multiplication, InnerOperation multiplicativeInverse, Constant one) {
+    static class DivisionRing extends Algebra implements Commutable, Associable, Distributable {
+        DivisionRing(Set<Operable> operables,
+                     InnerOperation addition, InnerOperation minus, Constant zero,
+                     InnerOperation multiplication, InnerOperation multiplicativeInverse, Constant one) {
             super(operables, addition, multiplication, minus, multiplicativeInverse, zero, one);
         }
         InnerOperation getAddition() {

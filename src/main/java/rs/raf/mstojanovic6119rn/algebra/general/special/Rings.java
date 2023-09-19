@@ -20,6 +20,8 @@ public class Rings {
         if (!group.isCommutative())
             throw new RuntimeException();
         Monoids.Monoid monoid = (Monoids.Monoid) Monoids.createMonoid(operables, multiplication);
+        if (!BinaryOperationUtils.isDistributive(multiplication, addition, operables))
+            throw new RuntimeException();
         return new Ring(operables,
                 group.getBinaryOperation(), group.getInverse(), group.getNeutralElement(),
                 monoid.getBinaryOperation(), monoid.getNeutralElement());
@@ -50,7 +52,8 @@ public class Rings {
         Constant getNeutralElementForMultiplication() {
             return (Constant) this.getOperations().get(4);
         }
-        Bodies.Body convertToBody() {
+        DivisionRings.DivisionRing convertToDivisionRing() {
+            /// TODO: Check isItsOwnInverse
             if (!BinaryOperationUtils.isItsOwnInverse(this.getMultiplication(),
                     super.getOperables(),
                     this.getNeutralElementForMultiplication().calculate(),
@@ -64,7 +67,7 @@ public class Rings {
             Set<Operable> operables = new HashSet<>(super.getOperables());
             operables.removeIf(o -> getNeutralElementForAddition().calculate().equals(o));
             Groups.Group group = (Groups.Group) Groups.createGroup(operables, this.getMultiplication());
-            return new Bodies.Body(super.getOperables(),
+            return new DivisionRings.DivisionRing(super.getOperables(),
                     this.getAddition(), this.getNegation(), this.getNeutralElementForAddition(),
                     group.getBinaryOperation(), group.getInverse(), group.getNeutralElement());
         }

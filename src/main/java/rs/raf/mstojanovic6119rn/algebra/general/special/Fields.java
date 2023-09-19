@@ -14,7 +14,7 @@ public class Fields {
 
     public static Algebra createField(Set<Operable> operables,
                                       InnerOperation addition, InnerOperation multiplication) {
-        Bodies.Body body = (Bodies.Body) Bodies.createBody(operables, addition, multiplication);
+        DivisionRings.DivisionRing body = (DivisionRings.DivisionRing) DivisionRings.createBody(operables, addition, multiplication);
         return body.convertToField();
     }
 
