@@ -13,8 +13,8 @@ import java.util.Set;
 
 public class DivisionRings {
 
-    public static Algebra createBody(Set<Operable> operables,
-                                     InnerOperation addition, InnerOperation multiplication) {
+    public static Algebra createDivisionRing(Set<Operable> operables,
+                                             InnerOperation addition, InnerOperation multiplication) {
         Rings.Ring ring = (Rings.Ring) Rings.createRing(operables, addition, multiplication);
         return ring.convertToDivisionRing();
     }

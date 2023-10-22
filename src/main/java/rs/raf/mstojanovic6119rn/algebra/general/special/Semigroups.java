@@ -15,7 +15,7 @@ public class Semigroups {
     public static Algebra createSemigroup(Set<Operable> operables, InnerOperation operation) {
         if (!BinaryOperationUtils.isAssociative(operation, operables))
             throw new RuntimeException();
-        Magmas.Magma groupoid = (Magmas.Magma) Magmas.createGroupoid(operables, operation);
+        Magmas.Magma groupoid = (Magmas.Magma) Magmas.createMagma(operables, operation);
         return groupoid.convertToSemigroup();
     }
 

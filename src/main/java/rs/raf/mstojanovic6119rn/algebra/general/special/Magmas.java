@@ -12,7 +12,7 @@ import java.util.Set;
 
 public class Magmas {
 
-    public static Algebra createGroupoid(Set<Operable> operables, InnerOperation operation) {
+    public static Algebra createMagma(Set<Operable> operables, InnerOperation operation) {
         if (operation.type().getValue() == 2)
             return new Magma(operables, operation);
         throw new DisrespectOfArityException(
