@@ -53,13 +53,12 @@ public class Rings {
             return (Constant) this.getOperations().get(4);
         }
         DivisionRings.DivisionRing convertToDivisionRing() {
-            /// TODO: Check isItsOwnInverse
-            if (!BinaryOperationUtils.isItsOwnInverse(this.getMultiplication(),
-                    super.getOperables(),
-                    this.getNeutralElementForMultiplication().calculate(),
-                    this.getNeutralElementForAddition().calculate()))
+            if (this.getNeutralElementForAddition().calculate()
+                    == this.getNeutralElementForMultiplication().calculate())
                 throw new RuntimeException();
             for (Operable o : super.getOperables()) {
+                if (o == this.getNeutralElementForAddition().calculate())
+                    continue;
                 if (!BinaryOperationUtils.hasInverse(this.getMultiplication(),
                         super.getOperables(), this.getNeutralElementForMultiplication().calculate(), o))
                     throw new RuntimeException();
